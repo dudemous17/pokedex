@@ -13,15 +13,15 @@ type cacheEntry struct {
 
 // Cache holds the map of cache entries and a mutex for concurrent access.
 type Cache struct {
-	mu      *sync.Mutex
-	cache 	map[string]cacheEntry
+	mu    *sync.Mutex
+	cache map[string]cacheEntry
 }
 
 // NewCache initializes a new Cache instance.
 func NewCache(interval time.Duration) Cache {
 	c := Cache{
-		cache:  make(map[string]cacheEntry),
-		mu:		&sync.Mutex{},
+		cache: make(map[string]cacheEntry),
+		mu:    &sync.Mutex{},
 	}
 	go c.reapLoop(interval)
 	return c
@@ -63,5 +63,6 @@ func (c *Cache) reap(now time.Time, last time.Duration) {
 	for key, entry := range c.cache {
 		if entry.createdAt.Before(now.Add(-last)) {
 			delete(c.cache, key)
+		}
 	}
 }
