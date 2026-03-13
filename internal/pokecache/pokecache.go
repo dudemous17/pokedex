@@ -59,7 +59,6 @@ func (c *Cache) reapLoop(interval time.Duration) {
 func (c *Cache) reap(now time.Time, last time.Duration) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	now := time.Now()
 	for key, entry := range c.cache {
 		if entry.createdAt.Before(now.Add(-last)) {
 			delete(c.cache, key)
