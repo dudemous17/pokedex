@@ -8,7 +8,7 @@ import (
 
 // GetLocation -
 func (c *Client) GetPokemon(pokemonName string) (Pokemon, error) {
-	url := baseURL + "/location-area/" + pokemonName
+	url := baseURL + "/pokemon/" + pokemonName
 
 	if val, ok := c.cache.Get(url); ok {
 		pokemonResp := Pokemon{}
